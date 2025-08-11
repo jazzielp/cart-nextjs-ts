@@ -1,0 +1,13 @@
+### List all products
+GET http://localhost:3000/api/products
+
+### List all products in cart
+GET http://localhost:3000/api/cart
+
+### Add a product to cart
+POST http://localhost:3000/api/cart
+Content-Type: application/json
+
+{
+  "idProduct": 1
+}
