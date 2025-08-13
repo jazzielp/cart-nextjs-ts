@@ -1,18 +1,21 @@
-"use client"
-
-import { Product } from "../interfaces/interface";
+import { useStore } from "@/app/stores/store";
 import { ProductCart } from "./ProductCart";
 
-interface CartProps {
-  cart: Product[];
-}
 
-export function Cart({ cart }: CartProps) {
+export function Cart() {
+  const cart = useStore((state) => state.cart);
+  const setIsCartOpen = useStore((state) => state.setIsCartOpen);
+
+  const handleCloseCart = () => {
+    setIsCartOpen(false);
+  };
   return (
     <aside className="fixed right-0 top-0 h-full w-[92vw] max-w-sm bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm border-l border-slate-200 dark:border-slate-800 shadow-2xl z-50 flex flex-col">
       <header className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <h2 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Carrito de compras</h2>
-        <button className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+        <button className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+          onClick={handleCloseCart}
+        >
           X
         </button>
       </header>
