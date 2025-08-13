@@ -10,7 +10,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const productId = Number(body.productId);
-  const response = await fetch("http://localhost:3000/api/products");
+  const response = await fetch("/api/products");
   const products: Product[] = await response.json();
 
   const product = products.find((product) => product.id === productId);
