@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { findBestCombination } from "@/utils/budget"
 import { Product } from "../interfaces/interface";
 
-export function Budget({ products }: { products: Product[] }) {
+export function Budget({ products, setBestCombination }: { products: Product[], setBestCombination: React.Dispatch<React.SetStateAction<Product[]>> }) {
   const [budget, setBudget] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,6 +14,7 @@ export function Budget({ products }: { products: Product[] }) {
 
   const handleCalculate = () => {
     const bestCombination = findBestCombination(products, Number(budget));
+    setBestCombination(bestCombination);
   }
 
   return (
