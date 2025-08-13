@@ -20,7 +20,6 @@ export function ProductCard({ product }: { product: Product }) {
         text: "Producto añadido al carrito",
       });
     } catch (error) {
-      console.log('entra al catch', error)
       console.error("Error al añadir al carrito:", error);
       toast.error({
         text: "No se pudo añadir el producto al carrito",
