@@ -13,6 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
     try {
       console.log('entra al try')
       const response = await addToCart(productId);
+      console.log("🚀 ~ handleClick ~ response:", response)
       const updatedCart = response.data;
       setCart(updatedCart);
       toast.success({
