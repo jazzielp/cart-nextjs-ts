@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Toaster } from "@pheralb/toast";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import { Header } from "@/app/components/Header";
 import "./globals.css";
 
@@ -30,6 +32,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Toaster />
       </body>
     </html>
   );

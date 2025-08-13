@@ -1,4 +1,6 @@
 "use client"
+import { toast } from "@pheralb/toast";
+
 import { useStore } from "@/app/stores/store";
 import { Product } from "@/app/interfaces/interface"
 import { addToCart } from "@/app/services/cart.service"
@@ -11,10 +13,14 @@ export function ProductCard({ product }: { product: Product }) {
       const response = await addToCart(productId);
       const updatedCart = response.data;
       setCart(updatedCart);
-      alert("Producto añadido al carrito");
+      toast.success({
+        text: "Producto añadido al carrito",
+      });
     } catch (error) {
       console.error("Error al añadir al carrito:", error);
-      alert("No se pudo añadir el producto al carrito");
+      toast.error({
+        text: "No se pudo añadir el producto al carrito",
+      });
     }
   }
   return (
