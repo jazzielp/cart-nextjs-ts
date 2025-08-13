@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Product } from "@/app/interfaces/interface";
-
-const cart: Product[] = [];
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
+
+const cart: Product[] = [];
 
 export async function GET() {
   return NextResponse.json(cart);
