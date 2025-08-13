@@ -1,12 +1,13 @@
 'use client'
-import { useState, useEffect } from "react";
-import { ProductCard } from "@/app/components/ProductCard";
-import { Product } from "@/app/interfaces/interface";
-import { Budget } from "./components/Budget";
+import { useEffect } from "react";
+import { Cart } from "./components/Cart";
+import { useStore } from "@/app/stores/store";
+import { ListProducto } from "./components/ListProducto";
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [bestCombination, setBestCombination] = useState<Product[]>([]);
+  const isCartOpen = useStore((state) => state.isCartOpen);
+  const setProducts = useStore((state) => state.setProducts);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,24 +19,9 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="">
-      <div className="flex justify-between max-w-7xl m-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
-        <div>
-          {
-            bestCombination.length > 0 ?
-              <h2 className="text-4xl">La mejor combinación</h2>
-              :
-              <h2 className="text-4xl">Productos</h2>
-          }
-        </div>
-        <Budget products={products} setBestCombination={setBestCombination} />
-      </div>
-      <div className="max-w-7xl m-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 grid gap-8 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4">
-        {products && products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
-    </main>
+    <>
+      <ListProducto />
+      {isCartOpen && <Cart />}
+    </>
   );
 }
