@@ -1,16 +1,16 @@
 "use client"
-import { useRouter } from "next/navigation";
-
+import { useStore } from "@/app/stores/store";
 import { Product } from "@/app/interfaces/interface"
 import { addToCart } from "@/app/services/cart.service"
 
 export function ProductCard({ product }: { product: Product }) {
-  const router = useRouter();
+  const setCart = useStore((state) => state.setCart);
 
   const handleClick = async (productId: number) => {
     try {
-      await addToCart(productId);
-      router.refresh();
+      const response = await addToCart(productId);
+      const updatedCart = response.data;
+      setCart(updatedCart);
       alert("Producto añadido al carrito");
     } catch (error) {
       console.error("Error al añadir al carrito:", error);
