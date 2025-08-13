@@ -10,7 +10,6 @@ export default function Home() {
   const setProducts = useStore((state) => state.setProducts);
   const bestCombination = useStore((state) => state.bestCombination);
 
-
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("/api/products");
