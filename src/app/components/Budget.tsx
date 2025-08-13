@@ -1,10 +1,12 @@
 "use client"
 import React, { useState } from "react";
 import { findBestCombination } from "@/utils/budget"
-import { Product } from "../interfaces/interface";
+import { useStore } from "@/app/stores/store";
 
-export function Budget({ products, setBestCombination }: { products: Product[], setBestCombination: React.Dispatch<React.SetStateAction<Product[]>> }) {
+export function Budget() {
   const [budget, setBudget] = useState("");
+  const products = useStore((state) => state.products);
+  const setBestCombination = useStore((state) => state.setBestCombination);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.match(/^\d*$/)) {
