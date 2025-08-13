@@ -1,8 +1,19 @@
 "use client";
 import { useStore } from "@/app/stores/store";
+import { useEffect } from "react";
 export function Header() {
   const cart = useStore((state) => state.cart);
   const setIsCartOpen = useStore((state) => state.setIsCartOpen);
+  const setCart = useStore((state) => state.setCart);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const response = await fetch("/api/cart");
+      const data = await response.json();
+      setCart(data);
+    };
+    fetchCart();
+  }, [])
 
   const handleCartClick = () => {
     setIsCartOpen(true);
