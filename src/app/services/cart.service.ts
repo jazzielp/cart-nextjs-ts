@@ -1,5 +1,5 @@
 export async function addToCart(productId: number) {
-  const response = await fetch("http://localhost:3000/api/cart", {
+  const response = await fetch("/api/cart", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
