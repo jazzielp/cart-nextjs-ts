@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/app/components/Header";
 import "./globals.css";
-import { Cart } from "./components/Cart";
-import { useStore } from "@/app/stores/store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isCartOpen = useStore((state) => state.isCartOpen);
   return (
     <html lang="en">
       <body
@@ -33,7 +30,6 @@ export default function RootLayout({
       >
         <Header />
         {children}
-        {isCartOpen && <Cart />}
       </body>
     </html>
   );
