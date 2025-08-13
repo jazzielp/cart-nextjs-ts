@@ -2,6 +2,8 @@ export async function addToCart(productId: number) {
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "http://localhost:3000";
+
+  console.log("baseUrl:", baseUrl);
   const response = await fetch(`${baseUrl}/api/cart`, {
     method: "POST",
     headers: {
