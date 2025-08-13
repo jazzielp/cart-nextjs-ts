@@ -9,7 +9,9 @@ export function ProductCard({ product }: { product: Product }) {
   const setCart = useStore((state) => state.setCart);
 
   const handleClick = async (productId: number) => {
+    console.log('entra al handleClick')
     try {
+      console.log('entra al try')
       const response = await addToCart(productId);
       const updatedCart = response.data;
       setCart(updatedCart);
@@ -17,6 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
         text: "Producto añadido al carrito",
       });
     } catch (error) {
+      console.log('entra al catch')
       console.error("Error al añadir al carrito:", error);
       toast.error({
         text: "No se pudo añadir el producto al carrito",
