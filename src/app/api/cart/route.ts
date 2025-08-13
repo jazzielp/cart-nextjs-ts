@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Product } from "@/app/interfaces/interface";
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 const cart: Product[] = [];
 
 export async function GET() {
@@ -11,19 +7,32 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const productId = Number(body.productId);
-  const response = await fetch(`${baseUrl}/api/products`);
-  const products: Product[] = await response.json();
+  try {
+    const { productId } = await request.json();
+    const { origin } = new URL(request.url);
+    const res = await fetch(`${origin}/api/products`, { cache: "no-store" });
+    if (!res.ok)
+      return NextResponse.json(
+        { error: "Failed to load products" },
+        { status: 500 }
+      );
 
-  const product = products.find((product) => product.id === productId);
-  if (!product) {
-    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    const products: Product[] = await res.json();
+
+    const product = products.find((p) => p.id === Number(productId));
+    if (!product)
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+
+    cart.push(product);
+    return NextResponse.json({
+      message: "Producto agregado al carrito",
+      data: cart,
+    });
+  } catch (err) {
+    console.error("Cart POST error:", err);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-
-  cart.push(product);
-  return NextResponse.json({
-    message: "Producto agregado al carrito",
-    data: cart,
-  });
 }
